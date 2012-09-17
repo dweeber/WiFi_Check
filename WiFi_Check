@@ -29,17 +29,17 @@ wlan='wlan0'
 ##################################################################
 # Check to see if there is a lock file
 if [ -e $lockfile ]; then
-	# A lockfile exists... Lets check to see if it is still valid
-	pid=`cat $pidfile`
-	if kill -0 &>1 > /dev/null $pid; then
-		# Still Valid... lets let it be...
-		#echo "Process still running, Lockfile valid"
-		exit 1
-	else
-		# Old Lockfile, Remove it
-		#echo "Old lockfile, Removing Lockfile"
-		rm $lockfile
-	fi
+    # A lockfile exists... Lets check to see if it is still valid
+    pid=`cat $pidfile`
+    if kill -0 &>1 > /dev/null $pid; then
+        # Still Valid... lets let it be...
+        #echo "Process still running, Lockfile valid"
+        exit 1
+    else
+        # Old Lockfile, Remove it
+        #echo "Old lockfile, Removing Lockfile"
+        rm $lockfile
+    fi
 fi
 # If we get here, set a lock file using our current PID#
 #echo "Setting Lockfile"
@@ -48,10 +48,10 @@ echo $$ > $lockfile
 # We can perform check
 echo "Performing Network check for $wlan"
 if ifconfig $wlan | grep -q "inet addr:" ; then
-	#echo "Network is Okay"
+    #echo "Network is Okay"
 else
-	echo "Network connection down! Attempting reconnection."
-	ifup --force $wlan
+    echo "Network connection down! Attempting reconnection."
+    ifup --force $wlan
 fi
  
 # Check is complete, Remove Lock file and exit
