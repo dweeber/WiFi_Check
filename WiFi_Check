@@ -1,7 +1,16 @@
 #!/bin/bash
 ##################################################################
+# A Project of TNET Services, Inc
 #
-# WiFi_Check
+# Title:     WiFi_Check
+# Author:    Kevin Reed (Dweeber)
+#            dweeber.dweebs@gmail.com
+# Project:   Raspberry Pi Stuff
+#
+# Copyright: Copyright (c) 2012 Kevin Reed <kreed@tnet.com>
+#            https://github.com/dweeber/WiFi_Check
+#
+# Purpose:
 #
 # Script checks to see if WiFi has a network IP and if not
 # restart WiFi
@@ -9,7 +18,8 @@
 # Uses a lock file which prevents the script from running more
 # than one at a time.  If lockfile is old, it removes it
 #
-# Instructions
+# Instructions:
+#
 # o Install where you want to run it from like /usr/local/bin
 # o chmod 0755 /usr/local/bin/WiFi_Check
 # o Add to crontab
