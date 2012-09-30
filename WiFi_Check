@@ -37,10 +37,15 @@ lockfile='/var/run/WiFi_Check.pid'
 # Which Interface do you want to check/fix
 wlan='wlan0'
 ##################################################################
+echo
+echo "Starting WiFi check for $wlan"
+date
+echo 
+
 # Check to see if there is a lock file
 if [ -e $lockfile ]; then
     # A lockfile exists... Lets check to see if it is still valid
-    pid=`cat $pidfile`
+    pid=`cat $lockfile`
     if kill -0 &>1 > /dev/null $pid; then
         # Still Valid... lets let it be...
         #echo "Process still running, Lockfile valid"
@@ -58,11 +63,19 @@ echo $$ > $lockfile
 # We can perform check
 echo "Performing Network check for $wlan"
 if ifconfig $wlan | grep -q "inet addr:" ; then
-    #echo "Network is Okay"
+    echo "Network is Okay"
 else
     echo "Network connection down! Attempting reconnection."
+    ifdown $wlan
+    sleep 5
     ifup --force $wlan
+    ifconfig $wlan | grep "inet addr"
 fi
+
+echo 
+echo "Current Setting:"
+ifconfig $wlan | grep "inet addr:"
+echo
  
 # Check is complete, Remove Lock file and exit
 #echo "process is complete, removing lockfile"
